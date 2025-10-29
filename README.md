@@ -1,4 +1,4 @@
-# Custom Multithreaded Port Scanner (Go)
+# 🔍 Custom Multithreaded Port Scanner (Go)
 
 ## Overview
 A compact, **multithreaded TCP port scanner** implemented in Go.  
@@ -33,6 +33,47 @@ Designed for rapid discovery of open TCP ports across single IPs or IP ranges. T
 ---
 
 ## Example output
+```
+
+Starting port scan on targets: [192.168.1.10]
+192.168.1.10 Port 22 is open.
+192.168.1.10 Port 80 is open.
+Port scan completed in 4.23s
+
+```
+
+---
+
+## Performance & limits
+- Scans every TCP port (1–65535) for each target — extremely parallel by default. This can saturate CPU, network, and local file descriptors on large ranges.  
+- Timeout is currently 10s per port — a balance between speed and reliability, but tunable.  
+- For large-scale scanning, consider rate-limiting, a worker-pool pattern, or scanning a prioritized subset of ports first (common ports, top-n lists).
+
+---
+
+## Safety & ethics (must-read)
+- **Only scan systems you own or have explicit permission to test.** Unauthorized scanning can be disruptive and illegal.  
+- Use in controlled lab environments or under a signed engagement scope when testing customer networks.
+
+---
+
+## Extension ideas (next-level improvements)
+- Add **worker pool** to limit concurrent connections and manage resource usage.  
+- Allow **custom port lists** or top-ports mode (e.g., top 100 common ports).  
+- Integrate **service banner grabbing** on open ports for quick fingerprinting.  
+- Add **rate limiting**, per-host concurrency limits, and progress reporting.  
+- Export results to CSV/JSON for automated ingestion into reporting tools.
+
+---
+
+## Implementation note
+This scanner is intentionally minimal and educational — it demonstrates Go concurrency, use of `net.DialTimeout`, basic IP range parsing, and straightforward output handling. Treat it as a foundation to build more robust scanning tools.
+
+---
+
+**Author:** Rasheed Jimoh  
+**Language:** Go (Golang)  
+**Intended use:** Lab / learning / authorized penetration testing only.
 ```
 package main
 
@@ -91,5 +132,3 @@ func main() {
  elapsed := time.Since(start)
  fmt.Println("Port scan completed in", elapsed)
 }
-```
-
