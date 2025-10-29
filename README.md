@@ -1,4 +1,4 @@
-# 🔍 Script Intro — Custom Multithreaded Port Scanner (Go)
+# Custom Multithreaded Port Scanner (Go)
 
 ## Overview
 A compact, **multithreaded TCP port scanner** implemented in Go.  
